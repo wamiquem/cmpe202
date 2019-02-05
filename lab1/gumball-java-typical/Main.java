@@ -31,6 +31,7 @@ public class Main {
         gumball_machine1.turnCrank();
         
         gumball_machine1.insertCoin(25);
+        gumball_machine1.insertCoin(5);
         gumball_machine1.turnCrank();
 
         /*System.out.println(gumballMachine);

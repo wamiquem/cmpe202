@@ -51,6 +51,7 @@ public class GumballMachine
         {
             this.has_required_amount = true;
             this.extra_amount = this.total_received_amount - this.cost;
+            this.remaining_amount = this.cost;
         }
     }
 
@@ -58,25 +59,26 @@ public class GumballMachine
     {
         if ( this.has_required_amount )
         {
+            this.has_required_amount = false;
+            
             if ( this.num_gumballs > 0 )
             {
                 this.num_gumballs-- ;
                 this.total_received_amount = 0;
-                this.has_required_amount = false ;
                 if(this.extra_amount > 0)
                 {
                     System.out.println( "Thanks for your "+this.cost+ "cents.  Gumball Ejected! Can't return your "+this.extra_amount +"cents." ) ;
+                    this.extra_amount = 0;
                 } 
                 else
                 {
                     System.out.println( "Thanks for your "+this.cost+ "cents.  Gumball Ejected!" ) ;
                 }
-                
             }
             else
             {
-                System.out.println( "No More Gumballs!  Sorry, can't return your "+(this.cost+this.extra_amount)+ " cents." ) ;
-                this.extra_amount = 0;
+                System.out.println( "No More Gumballs!  Sorry, can't return your "+this.total_received_amount + " cents." ) ;
+                this.total_received_amount = 0;
             }
         }
         else 
