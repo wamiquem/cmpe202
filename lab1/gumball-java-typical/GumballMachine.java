@@ -2,17 +2,17 @@
 public class GumballMachine
 {
 
-    protected int num_gumballs;
+    private int num_gumballs;
     private int accepted_coins[];
     private int cost;
-    protected boolean has_allowed_coin;
+    private boolean has_allowed_coin;
     private boolean has_required_amount;
-    protected int total_received_amount;
-    protected int remaining_amount;
-    protected int required_amount;
-    protected int extra_amount;
+    private int total_received_amount;
+    private int remaining_amount;
+    private int extra_amount;
+    private String msg_accepted_coins;
 
-    public GumballMachine( int size, int cost, int accepted_coins[] )
+    public GumballMachine( int size, int cost, int accepted_coins[], String msg_accepted_coins )
     {
         // initialise instance variables
         this.num_gumballs = size;
@@ -23,6 +23,7 @@ public class GumballMachine
         this.accepted_coins = accepted_coins;
         this.has_required_amount = false;
         this.has_allowed_coin = false;
+        this.msg_accepted_coins = msg_accepted_coins;
     }
 
     public void insertCoin(int coin){
@@ -44,7 +45,7 @@ public class GumballMachine
         }
         else
         {
-                System.out.println("Accepts only quarter");
+                System.out.println(msg_accepted_coins);
         }
         
         if(this.total_received_amount >= this.cost)
