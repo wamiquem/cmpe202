@@ -8,18 +8,31 @@ public class GumballMachine {
 
     State state = soldOutState;
     int count = 0;
+    int cost;
+    int acceptedCoins[];
+    String msgAcceptedCoins;
+    boolean hasAllowedCoin;
+    int totalRequiredAmount;
+    boolean hasRequiredAmount;
 
-    public GumballMachine(int numberGumballs) {
+    public GumballMachine(int numberGumballs, int cost, int acceptedCoins[], String msgAcceptedCoins) {
         soldOutState = new SoldOutState(this);
         noCoinState = new NoCoinState(this);
         hasRequiredAmountState = new HasRequiredAmountState(this);
         hasNoRequiredAmountState = new HasNoRequiredAmountState(this);
         soldState = new SoldState(this);
-
+        
+        this.cost = cost;
+        this.acceptedCoins = acceptedCoins;
+        this. msgAcceptedCoins = msgAcceptedCoins;
         this.count = numberGumballs;
         if (numberGumballs > 0) {
             state = noCoinState;
         } 
+        
+        hasAllowedCoin = false;
+        totalRequiredAmount = 0;
+        hasRequiredAmount = false;
     }
 
     public void insertCoin(int coin) {
@@ -46,6 +59,37 @@ public class GumballMachine {
         }
     }
 
+    void checkCoin(int coin) {
+        System.out.println("Checking if a valid coin is inserted...");
+        for(int c : acceptedCoins)
+        {
+            if(c == coin)
+            {
+                hasAllowedCoin = true;
+                break;
+            }
+            
+        }
+    }
+    
+    public boolean getHasAllowedCoin() {
+        return hasAllowedCoin;
+    }
+    
+    void addAmount(int coin) {
+        totalRequiredAmount = totalRequiredAmount + coin;
+    }
+    
+    void checkRequiredAmount() {
+        if(totalRequiredAmount >= cost){
+            hasRequiredAmount = true;
+        }
+    }
+    
+    public boolean getHasRequiredAmount() {
+        return hasRequiredAmount;
+    }
+    
     int getCount() {
         return count;
     }
