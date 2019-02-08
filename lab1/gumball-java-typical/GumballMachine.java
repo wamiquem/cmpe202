@@ -16,13 +16,13 @@ public class GumballMachine
     {
         // initialise instance variables
         this.num_gumballs = size;
-        this.total_received_amount = 0;
-        this.extra_amount = 0;
+        total_received_amount = 0;
+        extra_amount = 0;
         this.cost = cost;
-        this.remaining_amount = this.cost;
+        remaining_amount = this.cost;
         this.accepted_coins = accepted_coins;
-        this.has_required_amount = false;
-        this.has_allowed_coin = false;
+        has_required_amount = false;
+        has_allowed_coin = false;
         this.msg_accepted_coins = msg_accepted_coins;
     }
 
@@ -31,60 +31,60 @@ public class GumballMachine
         {
             if(c == coin)
             {
-                this.has_allowed_coin = true;
+                has_allowed_coin = true;
                 break;
             }
             
         }
         
-        if(this.has_allowed_coin)
+        if(has_allowed_coin)
         {
-                this.total_received_amount = this.total_received_amount + coin;
-                this.remaining_amount = this.remaining_amount - coin;
-                this.has_allowed_coin = false;
+                total_received_amount = total_received_amount + coin;
+                remaining_amount = remaining_amount - coin;
+                has_allowed_coin = false;
         }
         else
         {
-                System.out.println(msg_accepted_coins);
+                System.out.println(msg_accepted_coins + ". Sorry, can't return your "+coin+" cents.");
         }
         
-        if(this.total_received_amount >= this.cost)
+        if(total_received_amount >= cost)
         {
-            this.has_required_amount = true;
-            this.extra_amount = this.total_received_amount - this.cost;
-            this.remaining_amount = this.cost;
+            has_required_amount = true;
+            extra_amount = total_received_amount - cost;
+            remaining_amount = cost;
         }
     }
 
     public void turnCrank()
     {
-        if ( this.has_required_amount )
+        if ( has_required_amount )
         {
-            this.has_required_amount = false;
+            has_required_amount = false;
             
-            if ( this.num_gumballs > 0 )
+            if ( num_gumballs > 0 )
             {
-                this.num_gumballs-- ;
-                this.total_received_amount = 0;
-                if(this.extra_amount > 0)
+                num_gumballs-- ;
+                total_received_amount = 0;
+                if(extra_amount > 0)
                 {
-                    System.out.println( "Thanks for your "+this.cost+ "cents.  Gumball Ejected! Can't return your "+this.extra_amount +"cents." ) ;
-                    this.extra_amount = 0;
+                    System.out.println( "Thanks for your "+cost+ "cents.  Gumball Ejected! Can't return your "+extra_amount +"cents." ) ;
+                    extra_amount = 0;
                 } 
                 else
                 {
-                    System.out.println( "Thanks for your "+this.cost+ "cents.  Gumball Ejected!" ) ;
+                    System.out.println( "Thanks for your "+cost+ "cents.  Gumball Ejected!" ) ;
                 }
             }
             else
             {
-                System.out.println( "No More Gumballs!  Sorry, can't return your "+this.total_received_amount + " cents." ) ;
-                this.total_received_amount = 0;
+                System.out.println( "No More Gumballs!  Sorry, can't return your "+total_received_amount + " cents." ) ;
+                total_received_amount = 0;
             }
         }
         else 
         {
-            System.out.println( "Cannot eject the gumball. Please insert more "+this.remaining_amount +" cents" ) ;
+            System.out.println( "Cannot eject the gumball. Please insert more "+remaining_amount +" cents" ) ;
         }        
     }
 }
