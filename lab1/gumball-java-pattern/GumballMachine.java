@@ -9,13 +9,15 @@ public class GumballMachine {
     State state = soldOutState;
     int count = 0;
     int cost;
-    int acceptedCoins[];
-    String msgAcceptedCoins;
+    int allowedCoinsValues[];
+    String allowedCoins;
     boolean hasAllowedCoin;
-    int totalRequiredAmount;
+    int totalInsertedAmount;
     boolean hasRequiredAmount;
+    int totalRequiredAmount;
+    int remainingAmount;
 
-    public GumballMachine(int numberGumballs, int cost, int acceptedCoins[], String msgAcceptedCoins) {
+    public GumballMachine(int numberGumballs, int cost, int allowedCoinsValues[], String allowedCoins) {
         soldOutState = new SoldOutState(this);
         noCoinState = new NoCoinState(this);
         hasRequiredAmountState = new HasRequiredAmountState(this);
@@ -23,16 +25,18 @@ public class GumballMachine {
         soldState = new SoldState(this);
         
         this.cost = cost;
-        this.acceptedCoins = acceptedCoins;
-        this. msgAcceptedCoins = msgAcceptedCoins;
+        this.allowedCoinsValues = allowedCoinsValues;
+        this.allowedCoins = allowedCoins;
         this.count = numberGumballs;
         if (numberGumballs > 0) {
             state = noCoinState;
         } 
         
         hasAllowedCoin = false;
-        totalRequiredAmount = 0;
+        totalInsertedAmount = 0;
         hasRequiredAmount = false;
+        totalRequiredAmount = this.cost;
+        remainingAmount = totalRequiredAmount;
     }
 
     public void insertCoin(int coin) {
@@ -61,7 +65,7 @@ public class GumballMachine {
 
     void checkCoin(int coin) {
         System.out.println("Checking if a valid coin is inserted...");
-        for(int c : acceptedCoins)
+        for(int c : allowedCoinsValues)
         {
             if(c == coin)
             {
@@ -77,11 +81,12 @@ public class GumballMachine {
     }
     
     void addAmount(int coin) {
-        totalRequiredAmount = totalRequiredAmount + coin;
+        totalInsertedAmount = totalInsertedAmount + coin;
+        remainingAmount = remainingAmount - coin;
     }
     
     void checkRequiredAmount() {
-        if(totalRequiredAmount >= cost){
+        if(totalInsertedAmount >= cost){
             hasRequiredAmount = true;
         }
     }
@@ -133,6 +138,7 @@ public class GumballMachine {
         }
         result.append("\n");
         result.append("Machine is " + state + "\n");
+        result.append("Please insert exact value, extra change would not be returned if a gumball is ejected. \n");
         return result.toString();
     }
 }

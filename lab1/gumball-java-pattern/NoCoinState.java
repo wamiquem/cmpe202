@@ -10,8 +10,13 @@ public class NoCoinState implements State {
         System.out.println("You inserted a coin");
         gumballMachine.checkCoin(coin);
         if(gumballMachine.getHasAllowedCoin()) {
+            System.out.println("You inserted an allowed coin");
+            gumballMachine.hasAllowedCoin = false;
             gumballMachine.addAmount(coin);
+            gumballMachine.checkRequiredAmount();
             if(gumballMachine.getHasRequiredAmount()) {
+                gumballMachine.totalInsertedAmount = 0;
+                gumballMachine.remainingAmount = gumballMachine.totalRequiredAmount;
                 gumballMachine.setState(gumballMachine.getHasRequiredAmountState());
             }
             else {
@@ -19,25 +24,27 @@ public class NoCoinState implements State {
             }
         }
         else {
-            System.out.println("You inserted an invalid coin. "+gumballMachine.msgAcceptedCoins);
-            System.out.println("Sorry, can't return your coin. ");
+            System.out.println("Not an allowed coin.Sorry, can't return your coin.");
         }
         
     }
 
     public void ejectCoin() {
-        System.out.println("You haven't inserted a quarter");
+        System.out.println("You haven't inserted any coin");
     }
 
     public void turnCrank() {
-        System.out.println("You turned, but there's no quarter");
+        System.out.println("You turned, but there's no coin");
     }
 
     public void dispense() {
-        System.out.println("You need to pay first");
+        System.out.println("You need to pay first. There is no coin");
     } 
 
     public String toString() {
-        return "waiting for quarter";
+        StringBuffer result = new StringBuffer();
+        result.append("waiting for "+gumballMachine.cost+" cents. ");
+        result.append("Allowed coins - only "+gumballMachine.allowedCoins);
+        return result.toString();
     }
 }
