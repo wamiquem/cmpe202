@@ -11,7 +11,7 @@ public class GumballMachine {
     int cost;
     int allowedCoinsValues[];
     String allowedCoins;
-    boolean hasAllowedCoin;
+    boolean isAllowedCoin;
     int totalInsertedAmount;
     boolean hasRequiredAmount;
     int totalRequiredAmount;
@@ -32,7 +32,7 @@ public class GumballMachine {
             state = noCoinState;
         } 
         
-        hasAllowedCoin = false;
+        isAllowedCoin = false;
         totalInsertedAmount = 0;
         hasRequiredAmount = false;
         totalRequiredAmount = this.cost;
@@ -69,15 +69,15 @@ public class GumballMachine {
         {
             if(c == coin)
             {
-                hasAllowedCoin = true;
+                isAllowedCoin = true;
                 break;
             }
             
         }
     }
     
-    public boolean getHasAllowedCoin() {
-        return hasAllowedCoin;
+    public boolean getIsAllowedCoin() {
+        return isAllowedCoin;
     }
     
     void addAmount(int coin) {
@@ -93,6 +93,22 @@ public class GumballMachine {
     
     public boolean getHasRequiredAmount() {
         return hasRequiredAmount;
+    }
+    
+    void setIsAllowedCoin(boolean isAllowedCoin) {
+        this.isAllowedCoin = isAllowedCoin;
+    }
+    
+    void setTotalInsertedAmount(int totalInsertedAmount) {
+        this.totalInsertedAmount = totalInsertedAmount;
+    }
+    
+    void SetRemainingAmount() {
+        remainingAmount = totalRequiredAmount;
+    }
+    
+    void setHasRequiredAmount(boolean hasRequiredAmount) {
+        this.hasRequiredAmount = hasRequiredAmount;
     }
     
     int getCount() {
@@ -138,7 +154,6 @@ public class GumballMachine {
         }
         result.append("\n");
         result.append("Machine is " + state + "\n");
-        result.append("Please insert exact value, extra change would not be returned if a gumball is ejected. \n");
         return result.toString();
     }
 }

@@ -9,14 +9,15 @@ public class NoCoinState implements State {
     public void insertCoin(int coin) {
         System.out.println("You inserted a coin");
         gumballMachine.checkCoin(coin);
-        if(gumballMachine.getHasAllowedCoin()) {
+        if(gumballMachine.getIsAllowedCoin()) {
             System.out.println("You inserted an allowed coin");
-            gumballMachine.hasAllowedCoin = false;
+            gumballMachine.setIsAllowedCoin(false);
             gumballMachine.addAmount(coin);
             gumballMachine.checkRequiredAmount();
             if(gumballMachine.getHasRequiredAmount()) {
-                gumballMachine.totalInsertedAmount = 0;
-                gumballMachine.remainingAmount = gumballMachine.totalRequiredAmount;
+                gumballMachine.setTotalInsertedAmount(0);
+                gumballMachine.setHasRequiredAmount(false);
+                gumballMachine.SetRemainingAmount();
                 gumballMachine.setState(gumballMachine.getHasRequiredAmountState());
             }
             else {
@@ -38,7 +39,7 @@ public class NoCoinState implements State {
     }
 
     public void dispense() {
-        System.out.println("You need to pay first. There is no coin");
+        System.out.println("You need to pay first.");
     } 
 
     public String toString() {
