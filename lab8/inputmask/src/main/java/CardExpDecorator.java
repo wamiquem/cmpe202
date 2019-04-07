@@ -22,17 +22,6 @@ public class CardExpDecorator implements IDisplayComponent, IKeyEventHandler
 		int dateLength = dateOnly.length();
 		String defaultExp = "[MM/YY]" + "  " ;
 		
-//		if ( date.equals("") )
-//			decoratedString = "[MM/YY]" + "  " ;
-//		else {
-//			for (int i = 0; i < stringLength; i++) {
-//				decoratedString += in.charAt(i);
-//				
-//				if((i==2 && dateLength>2))
-//					decoratedString += "/"; 
-//			}
-//		}
-		
 		if(!in.equals(defaultExp)) {
 			for (int i = 0; i < stringLength; i++) {
 				decoratedString += in.charAt(i);
