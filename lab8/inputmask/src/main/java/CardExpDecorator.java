@@ -5,7 +5,6 @@ public class CardExpDecorator implements IDisplayComponent, IKeyEventHandler
 
 	private String addedState ;	
 	private IDisplayComponent component ;
-	private String date = "" ;
 	
 	public CardExpDecorator(IDisplayComponent component) {
 		this.component = component;
@@ -21,9 +20,20 @@ public class CardExpDecorator implements IDisplayComponent, IKeyEventHandler
 		int stringLength = in.length();
 		String dateOnly = in.replace("[", "").replace("]", "").trim();
 		int dateLength = dateOnly.length();
-		if ( date.equals("") )
-			decoratedString = "[MM/YY]" + "  " ;
-		else {
+		String defaultExp = "[MM/YY]" + "  " ;
+		
+//		if ( date.equals("") )
+//			decoratedString = "[MM/YY]" + "  " ;
+//		else {
+//			for (int i = 0; i < stringLength; i++) {
+//				decoratedString += in.charAt(i);
+//				
+//				if((i==2 && dateLength>2))
+//					decoratedString += "/"; 
+//			}
+//		}
+		
+		if(!in.equals(defaultExp)) {
 			for (int i = 0; i < stringLength; i++) {
 				decoratedString += in.charAt(i);
 				
@@ -31,7 +41,8 @@ public class CardExpDecorator implements IDisplayComponent, IKeyEventHandler
 					decoratedString += "/"; 
 			}
 		}
-		
+		else
+			decoratedString = in;
 		
 		return decoratedString;
 	}
@@ -40,7 +51,6 @@ public class CardExpDecorator implements IDisplayComponent, IKeyEventHandler
 	}
 	
 	public void key(String ch, int cnt) {
-		date += ch ;
 		((CreditCardExp)component).key(ch, cnt);
 	}
 	

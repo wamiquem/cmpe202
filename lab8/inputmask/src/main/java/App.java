@@ -41,17 +41,18 @@ public class App {
     public void key(String ch) {
     	if(ch.matches("[0-9]") || ch.equalsIgnoreCase("x")) {
     		if(ch.equalsIgnoreCase("x")) {
-    			if(count>0)
-    				count--;
+    			if(count>0) {
+    				screen.key(ch, count);
+        			count--;
+    			}
     		}
     		else {
-    			if(count<23)
+    			if(count<23) {
     				count++;
+    				screen.key(ch, count);
+    			}
     		}
-    		if(count<23)		
-    			screen.key(ch, count);
     	}
-    		
     }
 
 }

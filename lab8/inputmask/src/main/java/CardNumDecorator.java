@@ -5,7 +5,6 @@ public class CardNumDecorator implements IDisplayComponent, IKeyEventHandler
 
 	private String addedState ;	
 	private IDisplayComponent component ;
-	private String number = "";
 	
 	public CardNumDecorator(IDisplayComponent component) {
 		this.component = component;
@@ -21,16 +20,28 @@ public class CardNumDecorator implements IDisplayComponent, IKeyEventHandler
 		int stringLength = in.length();
 		String numberOnly = in.replace("[", "").replace("]", "").trim();
 		int numberLength = numberOnly.length();
-		if ( number.equals("") )
-			decoratedString = "[4444 4444 4444 4444]" + "  " ;
-		else {
+		String defaultNumber = "[4444 4444 4444 4444]" + "  ";
+	
+//		if ( number.equals("") )
+//			decoratedString = "[4444 4444 4444 4444]" + "  " ;
+//		else {
+//			for (int i = 0; i < stringLength; i++) {
+//				decoratedString += in.charAt(i);
+//				
+//				if((i==4 && numberLength>4) || (i==8 && numberLength>8) || (i==12 && numberLength>12))
+//					decoratedString += " "; 
+//			}
+//		}
+//		System.err.println("decoratedString = "+in);
+		if(!in.equals(defaultNumber)) {
 			for (int i = 0; i < stringLength; i++) {
 				decoratedString += in.charAt(i);
 				
 				if((i==4 && numberLength>4) || (i==8 && numberLength>8) || (i==12 && numberLength>12))
 					decoratedString += " "; 
 			}
-		}
+		}else
+			decoratedString = in;
 		
 		
 		return decoratedString;
@@ -41,7 +52,6 @@ public class CardNumDecorator implements IDisplayComponent, IKeyEventHandler
 	}
 	
 	public void key(String ch, int cnt) {
-		number += ch ;
 		((CreditCardNum)component).key(ch, cnt);
 	}
 	
