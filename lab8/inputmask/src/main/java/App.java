@@ -5,17 +5,17 @@
  */
 public class App {
 
-    private Screen screen;
-    private CreditCardNum num;
-    private CreditCardExp exp;
+	private Screen screen;
+	private IDisplayComponent num;
+	private IDisplayComponent exp;
     private CreditCardCVC cvc;
     private int count;
 
     public App() {
 
         screen = new Screen();
-        num = new CreditCardNum();
-        exp = new CreditCardExp();
+        num = new CardNumDecorator(new CreditCardNum());
+        exp = new CardExpDecorator(new CreditCardExp());
         cvc = new CreditCardCVC();
 
         screen.addSubComponent(num);
@@ -39,8 +39,19 @@ public class App {
     }
 
     public void key(String ch) {
-        count++;
-        screen.key(ch, count);
+    	if(ch.matches("[0-9]") || ch.equalsIgnoreCase("x")) {
+    		if(ch.equalsIgnoreCase("x")) {
+    			if(count>0)
+    				count--;
+    		}
+    		else {
+    			if(count<23)
+    				count++;
+    		}
+    		if(count<23)		
+    			screen.key(ch, count);
+    	}
+    		
     }
 
 }
