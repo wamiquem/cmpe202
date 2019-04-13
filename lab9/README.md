@@ -12,9 +12,9 @@
    passing in a block of code—a function without a name. Below is an example of my implementation of lambda:
 
    s.attach( () -> {
-   //Some line of codes        	
+   //Some lines of code       	
            });
 
-   As we can see, there are no implementations and instantiations of the functional interface 'Observer' but lambda expression to associate behavior. Also, unlike anonymous classes, there is no need of providing Interface type explicitly and also no return type(in case the abstract function returns by contract),  yet this example still compiles. This is called as type inference. The code is more readable and overall complexity of the code is also reduced somewhat.
+   As we can see, there are no implementations and instantiations of the functional interface 'Observer' but lambda expression to associate behavior. Also, unlike anonymous classes, there is no need of providing Interface type explicitly and also no return type(in case the abstract function returns by contract),  yet this example still compiles. This is called as type inference which is taken care by the java compiler. The code is more readable and overall complexity of the code is also reduced. Also, number of classes in our example is reduced.
 
 7. Furthermore, we could have used any existing standard interface that takes argument of same type and has same return type, because compiler does not worry about the name of the interface. We have incorporated some functional programming concept using Lambda along with the object oreinted programming. 
